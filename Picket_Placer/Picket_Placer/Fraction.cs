@@ -16,5 +16,7 @@ namespace Picket_Placer
 
         public int N { get; private set; }
         public int D { get; private set; }
+
+        
     }
 }
