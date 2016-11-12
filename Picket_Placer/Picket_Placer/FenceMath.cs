@@ -11,6 +11,61 @@ namespace Picket_Placer
         const double REL_ERROR = 0.001;
 
         /**********************************************************************************************
+         *  Function:       GetInput()
+         *  Description:    Converts the input if fractions to decimal equivalent for calculating also
+         *                  removes any negative numbers if they're entered
+         *  Input:          userInput - the input received from the user in whole, decimal, or fraction
+         *                  entered as (2-1/4 NOT 2 1/4)
+         *  Output:         value - the decimal equivalent of the userInput
+         **********************************************************************************************/
+         public static double GetInput(string userInput)
+        {
+            string input = userInput;
+            string[] a;             //[0] = whole number, [1] = fraction
+            string[] fraction;      //[0] = Numerator, [1] = Denominator
+            double value = 0.0;
+
+            //remove any negative information that was input
+            if (input.StartsWith("-"))
+            {
+                input = input.Remove(0, 1);
+            }
+
+            //if it contains a hyphen
+            if(input.Contains('-'))
+            {
+                //then split the string into whole number and fraction 
+                a = input.Split('-');
+
+                //split the fraction into numerator and denominator
+                fraction = a[1].Split('/');
+
+                // numerator / denominator to get decimal value
+                value = Convert.ToDouble(Convert.ToDouble(fraction[0]) / Convert.ToDouble(fraction[1]));
+
+                //add decimal value back to whole number
+                value = value + Convert.ToDouble(a[0]);
+                Console.WriteLine("Decimal Value: \t" + value);                                                         //TEST
+            }
+
+            //if the value entered was a whole number, return it
+            else if (Convert.ToDouble(input) - Math.Floor(Convert.ToDouble(input)) == 0)
+            {
+                value = Convert.ToDouble(input);
+                Console.WriteLine("Whole Number: \t" + value + '"');
+            }
+
+            //if the value entered was a decimal, then return it as a decimal
+            else if (input.Contains('.'))
+            {
+                value = Convert.ToDouble(input);
+                Console.WriteLine("Decimal Value: \t" + value + '"');
+            }
+
+            //return the absolute value of the calculated decimal
+            return value;
+        }
+        /**********************************************************************************************
          *  Function:       GetNumPickets()
          *  Description:    Calculates the number of pickets that are required to ensure the spacing
          *                  between pickets does not exceed the user input fence.MaxSpace by calculating
@@ -24,16 +79,19 @@ namespace Picket_Placer
             int ans = 0;
             double temp = 0.0;
 
-            Console.Write("\nFence Length: "); DecimalToFraction(fence.WallLength); Console.Write('"');
-            Console.Write("\nPicket Width: "); DecimalToFraction(fence.PicketWidth); Console.Write('"');
-            Console.Write("\nPicket Spacing: "); DecimalToFraction(fence.MaxSpace); Console.WriteLine('"');
+            //avoid dividing by 0
+            if(fence.PicketWidth == 0 || fence.MaxSpace == 0)
+            {
+                ans = 0;
+            }
 
             //calculate the picket amount based on a max length
-            temp = (fence.WallLength - fence.MaxSpace) / (fence.MaxSpace + fence.PicketWidth);
+            else
+            {
+                temp = (fence.WallLength - fence.MaxSpace) / (fence.MaxSpace + fence.PicketWidth);
+                ans = Convert.ToInt32(Math.Ceiling(temp));
+            }
 
-            ans = Convert.ToInt32(Math.Ceiling(temp));
-
-            Console.WriteLine("\nThis is the number of pickets that will fit: " + ans);                                            //TEST
             return ans;
         }
 
@@ -50,8 +108,7 @@ namespace Picket_Placer
             double value = 0.0;
 
             value = (fence.WallLength - (fence.PicketWidth * numTimes)) / (numTimes + 1);
-            Console.WriteLine("This is the spacing amount to evenly fit " + numTimes + " pickets: "                                 //TEST
-                             + value + '"');                                                                                        //TEST
+            Console.WriteLine("\n" + numTimes + " pickets will evenly fit with a space of " + value + '"');
 
             return value;
         }
@@ -66,8 +123,10 @@ namespace Picket_Placer
         {
             double ans = 0.0;
             double accuracy = 0.0625 * 10000;           // 1/16 accuracy
-            double down = 0.0;
-            double up = 0.0;
+
+            //used to test which value is closer to the original
+            double down = 0.0;                          // rounded down
+            double up = 0.0;                            // rounded up
 
             //Round to nearest 1/16th of an inch
             ans = value - Math.Floor(value);
@@ -88,7 +147,6 @@ namespace Picket_Placer
             }
 
             ans = ans / 10000;
-
             return (Math.Floor(value) + ans);
         }
 
