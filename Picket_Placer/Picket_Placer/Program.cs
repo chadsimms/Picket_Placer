@@ -24,15 +24,15 @@ namespace Picket_Placer
             Fence myFence = new Fence();        //new fence object 
 
             //get wall length of the fence that pickets will go on
-            Console.Write("Enter the Length of the Space to place pickets (in inches): ");
+            Console.Write("Enter the Length of the Space to place pickets (in inches as 2-1/4 or 2.25): ");
             myFence.WallLength = FenceMath.GetInput(Console.ReadLine());
 
             //get picket width from user 
-            Console.Write("Enter the Width of the pickets (in inches): ");
+            Console.Write("Enter the Width of the pickets (in inches as 1-1/8 or 1.125): ");
             myFence.PicketWidth = FenceMath.GetInput(Console.ReadLine());
 
             //get max space from the user between pickets
-            Console.Write("Enter the Max Spacing between pickets (in inches): ");
+            Console.Write("Enter the Max Spacing between pickets (in inches as 4-1/2 or 4.5): ");
             myFence.MaxSpace = FenceMath.GetInput(Console.ReadLine());
 
             Console.Write("\nFence Length: \t"); FenceMath.DecimalToFraction(myFence.WallLength); Console.Write('"');
@@ -63,13 +63,14 @@ namespace Picket_Placer
                 {
                     Console.Write("\nLeft edge of picket " + i + " is at: \t");
                     FenceMath.DecimalToFraction(spacing); Console.Write('"');
-                    Console.Write("  \t | Exact measurement is: " + spacing);                                                 //TEST
+                    Console.Write("     \t | Exact measurement is: " + spacing);                                                 //TEST
                     spacing = spacing + sectionWidth;
                 }
 
                 Console.WriteLine("\n");
             }
-            
+
+            Console.ReadLine();
         } 
     }
 }

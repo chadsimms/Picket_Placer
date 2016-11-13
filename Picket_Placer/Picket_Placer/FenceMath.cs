@@ -32,34 +32,44 @@ namespace Picket_Placer
             }
 
             //if it contains a hyphen
-            if(input.Contains('-'))
+            if(input.Contains('-') || input.Contains('/'))
             {
-                //then split the string into whole number and fraction 
-                a = input.Split('-');
+                if (input.Contains('-'))
+                {
+                    //then split the string into whole number and fraction 
+                    a = input.Split('-');
 
-                //split the fraction into numerator and denominator
-                fraction = a[1].Split('/');
+                    //split the fraction into numerator and denominator
+                    fraction = a[1].Split('/');
 
-                // numerator / denominator to get decimal value
-                value = Convert.ToDouble(Convert.ToDouble(fraction[0]) / Convert.ToDouble(fraction[1]));
+                    // numerator / denominator to get decimal value
+                    value = Convert.ToDouble(Convert.ToDouble(fraction[0]) / Convert.ToDouble(fraction[1]));
 
-                //add decimal value back to whole number
-                value = value + Convert.ToDouble(a[0]);
-                Console.WriteLine("Decimal Value: \t" + value);                                                         //TEST
+                    //add decimal value back to whole number
+                    value = value + Convert.ToDouble(a[0]);
+                    //Console.WriteLine("Decimal Value: \t" + value);                                                       //TEST
+                }
+                else
+                {
+                    fraction = input.Split('/');
+
+                    // numerator / denominator to get decimal value
+                    value = Convert.ToDouble(Convert.ToDouble(fraction[0]) / Convert.ToDouble(fraction[1]));
+                }
             }
 
             //if the value entered was a whole number, return it
             else if (Convert.ToDouble(input) - Math.Floor(Convert.ToDouble(input)) == 0)
             {
                 value = Convert.ToDouble(input);
-                Console.WriteLine("Whole Number: \t" + value + '"');
+                //Console.WriteLine("Whole Number: \t" + value + '"');                                                  //TEST
             }
 
             //if the value entered was a decimal, then return it as a decimal
             else if (input.Contains('.'))
             {
                 value = Convert.ToDouble(input);
-                Console.WriteLine("Decimal Value: \t" + value + '"');
+                //Console.WriteLine("Decimal Value: \t" + value + '"');                                                 //TEST
             }
 
             //return the absolute value of the calculated decimal
@@ -171,7 +181,15 @@ namespace Picket_Placer
             {
                 Fraction num = RealToFraction(fraction, REL_ERROR);
 
-                Console.Write(wholeNum + "-" + num.N + "/" + num.D);
+                if(wholeNum == 0)
+                {
+                    Console.Write(num.N + "/" + num.D);
+                }
+                else
+                {
+                    Console.Write(wholeNum + "-" + num.N + "/" + num.D);
+                }
+                
             }
         }
 
