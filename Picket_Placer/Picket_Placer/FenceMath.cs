@@ -12,11 +12,10 @@ namespace Picket_Placer
 
         /**********************************************************************************************
          *  Function:       CalcResults()
-         *  Description:    Converts the input if fractions to decimal equivalent for calculating also
-         *                  removes any negative numbers if they're entered
-         *  Input:          userInput - the input received from the user in whole, decimal, or fraction
-         *                  entered as (2-1/4 NOT 2 1/4)
-         *  Output:         value - the decimal equivalent of the userInput
+         *  Description:    Calculates the results given a Fence object and returns a List of FenceResults
+         *  Input:          myFence - the Fence object to calculate results from
+         *  Output:         results - the List of FenceResults returned with calculated spacing and 
+         *                              measurements
          **********************************************************************************************/
          public static List<FenceResults> CalcResults(Fence myFence)
         {
