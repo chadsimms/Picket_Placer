@@ -11,6 +11,50 @@ namespace Picket_Placer
         const double REL_ERROR = 0.001;
 
         /**********************************************************************************************
+         *  Function:       CalcResults()
+         *  Description:    Converts the input if fractions to decimal equivalent for calculating also
+         *                  removes any negative numbers if they're entered
+         *  Input:          userInput - the input received from the user in whole, decimal, or fraction
+         *                  entered as (2-1/4 NOT 2 1/4)
+         *  Output:         value - the decimal equivalent of the userInput
+         **********************************************************************************************/
+         public static List<FenceResults> CalcResults(Fence myFence)
+        {
+            int numPickets = 0;
+            double spacing = 0.0;
+            double sectionWidth = 0.0;
+
+            //make a list to return
+            List<FenceResults> results = new List<FenceResults>();
+
+            //calculate the number of pickets
+            numPickets = FenceMath.GetNumPickets(myFence);
+
+            //if no pickets, return no pickets fit
+            if(numPickets > 0)
+            {
+                //calculate spacing rounded to double accuracy
+                spacing = FenceMath.GetSpacing(myFence, numPickets);
+
+                //calculate section width (spacing + picket width)
+                sectionWidth = myFence.PicketWidth + spacing;
+
+                //Console.Write("\nAll measurements are in inches and starting at the left edge of the workspace rounded to the nearest 1/16th\n");
+
+                //put fence object into results list to return
+                for (int i = 1; i <= numPickets; i++)
+                {
+                    FenceResults fence = new FenceResults(FenceMath.DecimalToFraction(spacing).ToString(), spacing);
+                    results.Add(fence);
+                    spacing = spacing + sectionWidth;
+                }
+            }
+
+            return results;
+        }
+
+
+        /**********************************************************************************************
          *  Function:       GetInput()
          *  Description:    Converts the input if fractions to decimal equivalent for calculating also
          *                  removes any negative numbers if they're entered
@@ -18,7 +62,7 @@ namespace Picket_Placer
          *                  entered as (2-1/4 NOT 2 1/4)
          *  Output:         value - the decimal equivalent of the userInput
          **********************************************************************************************/
-         public static double GetInput(string userInput)
+        public static double GetInput(string userInput)
         {
             string input = userInput;
             string[] a;             //[0] = whole number, [1] = fraction
@@ -147,7 +191,7 @@ namespace Picket_Placer
             up = Math.Ceiling(ans / accuracy) * accuracy;
 
             //determine if closer to round up or down to the nearest 1/16th
-            if (Math.Abs(down - ans) < (Math.Abs(up - ans)))
+            if (Math.Abs(down - ans) <= (Math.Abs(up - ans)))
             {
                 ans = down;
             }
@@ -167,15 +211,16 @@ namespace Picket_Placer
         *  Input:          value - to be converted to a fraction rounded to 1/16th
         *  Calls To:       RoundToSixteenth(), RealToFraction()
         **********************************************************************************************/
-        public static void DecimalToFraction(double value)
+        public static string DecimalToFraction(double value)
         {
             double temp = RoundToSixteenth(value);
             double wholeNum = Math.Floor(temp);
-            double fraction = temp - Math.Floor(temp);   //round the spacing value to 1/16
+            double fraction = temp - Math.Floor(temp);              //round the spacing value to 1/16
+            string result = "";
 
             if (fraction == 0)
             {
-                Console.Write(wholeNum);
+                result = wholeNum.ToString();
             }
             else
             {
@@ -183,14 +228,15 @@ namespace Picket_Placer
 
                 if(wholeNum == 0)
                 {
-                    Console.Write(num.N + "/" + num.D);
+                    result = num.N.ToString() + "/" + num.D.ToString();
                 }
                 else
                 {
-                    Console.Write(wholeNum + "-" + num.N + "/" + num.D);
+                    result = wholeNum.ToString() + "-" + num.N.ToString() + "/" + num.D.ToString();
                 }
-                
             }
+
+            return result;
         }
 
         /**********************************************************************************************

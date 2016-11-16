@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Fence.cs" />
     <Compile Include="FenceMath.cs" />
+    <Compile Include="FenceResults.cs" />
     <Compile Include="Fraction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
