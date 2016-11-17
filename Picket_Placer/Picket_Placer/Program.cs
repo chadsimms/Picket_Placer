@@ -41,10 +41,13 @@ namespace Picket_Placer
             {
                 Console.WriteLine("No Pickets will fit in desired space!  Make sure the right measurements were entered and try again");
             }
-            foreach(FenceResults r in results)
+            else
             {
-                Console.Write("\nLeft edge of picket " + r.boardNumber + " is at: \t" + r.roundedResult + '"');
-                Console.Write("     \t | Exact measurement is: " + r.exactResult);                                                          //TEST
+                foreach (FenceResults r in results)
+                {
+                    Console.Write("\nLeft edge of picket " + r.boardNumber + " is at: \t" + r.roundedResult + '"');
+                    Console.Write("     \t | Exact measurement is: " + r.exactResult);                                                          //TEST
+                }
             }
 
             Console.ReadLine();
