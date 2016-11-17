@@ -16,7 +16,6 @@ namespace Picket_Placer
          **********************************************************************************************/
         static void Main(string[] args)
         {
-            int count = 1;
             Fence myFence = new Fence();        //new fence object 
 
             //get wall length of the fence that pickets will go on
@@ -44,9 +43,8 @@ namespace Picket_Placer
             }
             foreach(FenceResults r in results)
             {
-                Console.Write("\nLeft edge of picket " + count + " is at: \t" + r.roundedResult + '"');
+                Console.Write("\nLeft edge of picket " + r.boardNumber + " is at: \t" + r.roundedResult + '"');
                 Console.Write("     \t | Exact measurement is: " + r.exactResult);                                                          //TEST
-                count++;
             }
 
             Console.ReadLine();

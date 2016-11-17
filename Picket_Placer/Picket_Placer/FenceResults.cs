@@ -13,11 +13,13 @@ namespace Picket_Placer
 
         }
 
-        public FenceResults(string result, double exact)
+        public FenceResults(int numBoards, string result, double exact)
         {
+            boardNumber = numBoards;
             roundedResult = result;
             exactResult = exact;
         }
+        public int boardNumber { get; set; }
 
         public string roundedResult { get; set; }
 

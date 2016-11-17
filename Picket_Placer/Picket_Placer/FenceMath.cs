@@ -43,7 +43,7 @@ namespace Picket_Placer
                 //put fence object into results list to return
                 for (int i = 1; i <= numPickets; i++)
                 {
-                    FenceResults fence = new FenceResults(FenceMath.DecimalToFraction(spacing).ToString(), spacing);
+                    FenceResults fence = new FenceResults(i,FenceMath.DecimalToFraction(spacing).ToString(), spacing);
                     results.Add(fence);
                     spacing = spacing + sectionWidth;
                 }
