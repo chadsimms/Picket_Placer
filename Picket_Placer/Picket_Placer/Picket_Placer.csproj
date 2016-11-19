@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fence.cs" />
-    <Compile Include="FenceMath.cs" />
-    <Compile Include="FenceResults.cs" />
+    <Compile Include="Calculations.cs" />
+    <Compile Include="Fence\Fence.cs" />
+    <Compile Include="Fence\FenceMath.cs" />
+    <Compile Include="Fence\FenceResults.cs" />
     <Compile Include="Fraction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

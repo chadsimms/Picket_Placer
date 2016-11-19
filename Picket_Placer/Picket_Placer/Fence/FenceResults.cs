@@ -8,11 +8,6 @@ namespace Picket_Placer
 {
     class FenceResults
     {
-        public FenceResults()
-        {
-
-        }
-
         public FenceResults(int numBoards, string result, double exact)
         {
             boardNumber = numBoards;
